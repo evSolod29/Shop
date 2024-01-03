@@ -32,7 +32,7 @@ public class UsersController : Controller
         return await service.Get(name, email);
     }
 
-    [HttpGet("{id:string}")]
+    [HttpGet("{id}")]
     [ProducesResponseType(typeof(ViewUser), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -49,7 +49,7 @@ public class UsersController : Controller
         }
     }
 
-    [HttpPut("{id:string/block}")]
+    [HttpPut("{id:Guid}/block")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -67,7 +67,7 @@ public class UsersController : Controller
         }
     }
 
-    [HttpPut("{id:string/unblock}")]
+    [HttpPut("{id:Guid}/unblock")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -85,7 +85,7 @@ public class UsersController : Controller
         }
     }
 
-    [HttpDelete("{id:string}")]
+    [HttpDelete("{id:Guid}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
@@ -103,7 +103,7 @@ public class UsersController : Controller
         }
     }
 
-    [HttpPost("{id:string}/roles/{role:int}")]
+    [HttpPost("{id:Guid}/roles/{role:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -125,7 +125,7 @@ public class UsersController : Controller
             return BadRequest(ex.Message);
         }
     }
-    [HttpDelete("{id:string}/roles/{role:int}")]
+    [HttpDelete("{id:Guid}/roles/{role:int}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -148,7 +148,7 @@ public class UsersController : Controller
         }
     }
 
-    [HttpGet("{id:string}/roles")]
+    [HttpGet("{id:Guid}/roles")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     [ProducesResponseType(StatusCodes.Status403Forbidden)]
