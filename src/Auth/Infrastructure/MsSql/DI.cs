@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Auth.Domain.Repositories.Base;
 
 namespace Auth.Infrastructure.MsSql
 {
@@ -29,6 +30,12 @@ namespace Auth.Infrastructure.MsSql
             .AddEntityFrameworkStores<AuthContext>()
             .AddDefaultTokenProviders(); ;
 
+            services.Scan(scan => scan.FromCallingAssembly()
+            .AddClasses(classes =>
+                classes.AssignableTo(typeof(IRepository)))
+                    .AsImplementedInterfaces()
+                    .WithScopedLifetime()
+            );
             return services;
         }
     }
