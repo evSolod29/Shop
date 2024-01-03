@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "72u3GlTfxuXlt3NSXv0lqpFY3gjBEaumF0cna6SWxbklguT0y4G6JLcG8Hsj3PRbNg935kGr4AHnUQ3BRoFVAg==",
+  "success": true,
+  "projectFilePath": "D:\\_Projects\\Shop\\src\\Shared.Resources\\Shared.Resources.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\esolodki\\.nuget\\packages\\sylvan.buildtools.resources\\0.6.1\\sylvan.buildtools.resources.0.6.1.nupkg.sha512"
+  ],
+  "logs": []
+}

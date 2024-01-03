@@ -1,0 +1,29 @@
+{
+    "Strings": {
+        "AdditionalNote": "Дополнительное примечание",
+        "Category": "Категория",
+        "CategoryAlreadyExist": "Категория уже существует",
+        "CategoryNotFound": "Категория не найдена.",
+        "CommonNote": "Общее примечание",
+        "CreateSuccessful": "Создание прошло успешно.",
+        "CredentialsError": "Неверное имя пользователя или пароль.",
+        "DeleteSuccessful": "Удаление прошло успешно.",
+        "Description": "Описание",
+        "GetSuccessful": "Получение прошло успешно.",
+        "Name": "Наименование",
+        "Price": "Стоимость",
+        "Product": "Продукт",
+        "ProductAlreadyExist": "Продукт уже существует.",
+        "ProductNotFound": "Продукт не найден.",
+        "PropertyMustBeCertainLength": "Поле \"{PropertyName}\" должно быть от {MinLength} до {MaxLength} символов.",
+        "PropertyMustBeGreaterThanZero": "Поле \"{PropertyName}\" должно быть больше 0.",
+        "PropertyMustBeNotNull": "Поле \"{PropertyName}\" не может быть пустым.",
+        "RoleNotFound": "Роль не найдена.",
+        "UpdateSuccessful": "Изменение прошло успешно.",
+        "UserAlreadyExist": "Пользователь уже существует.",
+        "UserAlreadyHaveRole": "Пользователь уже имеет данные права.",
+        "UserAlreadyHaveNotRole": "Пользователь уже имеет данные права.",
+        "UserIsBlocked": "Пользователь заблокирован.",
+        "UserNotFound": "Пользователь не найден."
+    }
+}

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "UyczViwn9DGpNmCBrSAxYpjPWI7lhhrK+F30GXa+DAMTOc0luBjxdoTvi7hG84hLBIUI4HMlYlYxFg900JPafA==",
+  "success": true,
+  "projectFilePath": "D:\\_Projects\\Shop\\src\\Shop\\Domain\\Shop.Domain.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\esolodki\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\6.0.0\\microsoft.extensions.dependencyinjection.abstractions.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

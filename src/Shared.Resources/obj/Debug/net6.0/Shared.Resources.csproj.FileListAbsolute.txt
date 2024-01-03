@@ -1,0 +1,11 @@
+D:\_Projects\Shop\src\Shared.Resources\bin\Debug\net6.0\Shared.Resources.deps.json
+D:\_Projects\Shop\src\Shared.Resources\bin\Debug\net6.0\Shared.Resources.dll
+D:\_Projects\Shop\src\Shared.Resources\bin\Debug\net6.0\Shared.Resources.pdb
+D:\_Projects\Shop\src\Shared.Resources\obj\Debug\net6.0\Shared.Resources.GeneratedMSBuildEditorConfig.editorconfig
+D:\_Projects\Shop\src\Shared.Resources\obj\Debug\net6.0\Shared.Resources.AssemblyInfoInputs.cache
+D:\_Projects\Shop\src\Shared.Resources\obj\Debug\net6.0\Shared.Resources.AssemblyInfo.cs
+D:\_Projects\Shop\src\Shared.Resources\obj\Debug\net6.0\Shared.Resources.csproj.CoreCompileInputs.cache
+D:\_Projects\Shop\src\Shared.Resources\obj\Debug\net6.0\Shared.Resources.dll
+D:\_Projects\Shop\src\Shared.Resources\obj\Debug\net6.0\refint\Shared.Resources.dll
+D:\_Projects\Shop\src\Shared.Resources\obj\Debug\net6.0\Shared.Resources.pdb
+D:\_Projects\Shop\src\Shared.Resources\obj\Debug\net6.0\ref\Shared.Resources.dll

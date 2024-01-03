@@ -1,0 +1,15 @@
+d:\_Projects\Shop\src\Shared.DTO\bin\Debug\net6.0\Shared.DTO.deps.json
+d:\_Projects\Shop\src\Shared.DTO\bin\Debug\net6.0\Shared.DTO.dll
+d:\_Projects\Shop\src\Shared.DTO\bin\Debug\net6.0\Shared.DTO.pdb
+d:\_Projects\Shop\src\Shared.DTO\bin\Debug\net6.0\Shared.Resources.dll
+d:\_Projects\Shop\src\Shared.DTO\bin\Debug\net6.0\Shared.Resources.pdb
+d:\_Projects\Shop\src\Shared.DTO\obj\Debug\net6.0\Shared.DTO.csproj.AssemblyReference.cache
+d:\_Projects\Shop\src\Shared.DTO\obj\Debug\net6.0\Shared.DTO.GeneratedMSBuildEditorConfig.editorconfig
+d:\_Projects\Shop\src\Shared.DTO\obj\Debug\net6.0\Shared.DTO.AssemblyInfoInputs.cache
+d:\_Projects\Shop\src\Shared.DTO\obj\Debug\net6.0\Shared.DTO.AssemblyInfo.cs
+d:\_Projects\Shop\src\Shared.DTO\obj\Debug\net6.0\Shared.DTO.csproj.CoreCompileInputs.cache
+d:\_Projects\Shop\src\Shared.DTO\obj\Debug\net6.0\Shared.DTO.csproj.CopyComplete
+d:\_Projects\Shop\src\Shared.DTO\obj\Debug\net6.0\Shared.DTO.dll
+d:\_Projects\Shop\src\Shared.DTO\obj\Debug\net6.0\refint\Shared.DTO.dll
+d:\_Projects\Shop\src\Shared.DTO\obj\Debug\net6.0\Shared.DTO.pdb
+d:\_Projects\Shop\src\Shared.DTO\obj\Debug\net6.0\ref\Shared.DTO.dll
