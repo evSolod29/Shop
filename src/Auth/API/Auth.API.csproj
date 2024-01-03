@@ -11,5 +11,6 @@
     <ProjectReference Include="..\Application\Auth.Application.csproj" />
     <ProjectReference Include="..\..\Shared.DTO\Shared.DTO.csproj" />
     <ProjectReference Include="..\..\Shared.Resources\Shared.Resources.csproj" />
+    <ProjectReference Include="..\Infrastructure\MsSql\Auth.Infrastructure.MsSql.csproj" />
   </ItemGroup>
 </Project>

@@ -50,6 +50,32 @@ namespace Auth.Application.Services
             return;
         }
 
+        public async Task<IEnumerable<ViewUser>> Get(string? name = null, string? email = null)
+        {
+            return mapper.Map<IEnumerable<ViewUser>>(await users.GetUsers(name, email));
+        }
+
+        public async Task<ViewUser> GetById(string id)
+        {
+            User user = await users.FindById(id) ??
+                throw new NotFoundException(Strings.UserNotFound);
+            return mapper.Map<ViewUser>(user);
+        }
+
+        public async Task<ViewUser> GetByName(string name)
+        {
+            User user = await users.FindByName(name) ??
+                throw new NotFoundException(Strings.UserNotFound);
+            return mapper.Map<ViewUser>(user);
+        }
+
+        public async Task<IEnumerable<string>> GetUserRoles(string userId)
+        {
+            User user = await users.FindById(userId) ??
+                throw new NotFoundException(Strings.UserNotFound);
+            return await users.GetUserRoles(user);
+        }
+
         public async Task LockUser(string id)
         {
             if (!await users.IsExistId(id))

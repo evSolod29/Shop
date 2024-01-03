@@ -14,5 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Shared.DTO\Shared.DTO.csproj" />
     <ProjectReference Include="..\Domain\Auth.Domain.csproj" />
+    <ProjectReference Include="..\..\Shared.Utils\Shared.Utils.csproj" />
   </ItemGroup>
 </Project>

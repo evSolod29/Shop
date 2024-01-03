@@ -19,6 +19,6 @@ namespace Auth.Domain.Repositories
         Task RemoveFromRole(User user, string roleName);
         Task<bool> IsInRole(string userId, string role);
         Task<IEnumerable<User>> GetUsers(string? name = null, string? email = null);
-
+        Task<IEnumerable<string>> GetUserRoles(User user);
     }
 }

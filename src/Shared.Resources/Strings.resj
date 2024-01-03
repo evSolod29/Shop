@@ -9,8 +9,12 @@
         "CredentialsError": "Неверное имя пользователя или пароль.",
         "DeleteSuccessful": "Удаление прошло успешно.",
         "Description": "Описание",
+        "Email": "Электронная почта",
+        "EmailNotCorrect": "Электронная почта имеет неверный формат.",
         "GetSuccessful": "Получение прошло успешно.",
+        "IsLocked": "Заблокирован",
         "Name": "Наименование",
+        "Password": "Пароль",
         "Price": "Стоимость",
         "Product": "Продукт",
         "ProductAlreadyExist": "Продукт уже существует.",
@@ -24,6 +28,7 @@
         "UserAlreadyHaveRole": "Пользователь уже имеет данные права.",
         "UserAlreadyHaveNotRole": "Пользователь уже имеет данные права.",
         "UserIsBlocked": "Пользователь заблокирован.",
-        "UserNotFound": "Пользователь не найден."
+        "UserNotFound": "Пользователь не найден.",
+        "UserName": "Имя пользователя"
     }
 }

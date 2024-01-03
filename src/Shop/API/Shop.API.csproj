@@ -12,5 +12,6 @@
     <ProjectReference Include="..\..\Shared.DTO\Shared.DTO.csproj" />
     <ProjectReference Include="..\..\Shared.Resources\Shared.Resources.csproj" />
     <ProjectReference Include="..\Infrastructure\MsSql\Shop.Infrastructure.MsSql.csproj" />
+    <ProjectReference Include="..\..\Shared.Utils\Shared.Utils.csproj" />
   </ItemGroup>
 </Project>

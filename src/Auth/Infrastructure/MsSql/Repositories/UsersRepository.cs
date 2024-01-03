@@ -106,5 +106,11 @@ namespace Auth.Infrastructure.MsSql.Repositories
                 .ToListAsync())
                 .ToIEnumerableUser();
         }
+
+        public async Task<IEnumerable<string>> GetUserRoles(User user)
+        {
+            AuthUser authUser = await userManager.FindByIdAsync(user.Id);
+            return await userManager.GetRolesAsync(authUser);
+        }
     }
 }

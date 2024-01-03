@@ -8,22 +8,27 @@ using FluentValidation;
 using Shared.DTO;
 using Shared.DTO.DTO.Users;
 using Shared.Resources;
+using Shared.Utils.Interfaces;
 
 namespace Auth.Application.Services
 {
-    public class AuthorizationServise : IAuthorizationServise
+    public class AuthorizationServise : IAuthorizationService
     {
+        private readonly ITokenGenerator tokenGenerator;
         private readonly IMapper mapper;
         private readonly IUsersRepository users;
         private readonly IValidator<CreateUser> validator;
 
 
-        public AuthorizationServise(IMapper mapper, IUsersRepository users, IValidator<CreateUser> validator)
+        public AuthorizationServise(ITokenGenerator tokenGenerator,
+                                    IMapper mapper,
+                                    IUsersRepository users,
+                                    IValidator<CreateUser> validator)
         {
+            this.tokenGenerator = tokenGenerator;
             this.mapper = mapper;
             this.users = users;
             this.validator = validator;
-
         }
 
 
@@ -35,7 +40,14 @@ namespace Auth.Application.Services
             if (!await users.CheckPasswordAsync(user))
                 throw new IncorrectParametersException(Strings.CredentialsError);
             if (user.IsLocked)
-                throw new IncorrectParametersException(Strings.UserIsBlocked);
+                throw new AccessDenidedException(Strings.UserIsBlocked);
+            IEnumerable<string> roles = await users.GetUserRoles(user);
+            return new AuthDetails
+            {
+                Roles = roles,
+                Token = tokenGenerator.Generate(userName, roles),
+                Username = userName
+            };
         }
 
         public async Task<string> Registrtion(CreateUser createUser)

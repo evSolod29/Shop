@@ -16,5 +16,6 @@ namespace Auth.Application.Interfaces
         Task UnlockUser(string id);
         Task AddRole(string userId, Role role);
         Task RemoveRole(string userId, Role role);
+        Task<IEnumerable<string>> GetUserRoles(string userId);
     }
 }
