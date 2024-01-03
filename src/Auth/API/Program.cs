@@ -1,12 +1,14 @@
 using Auth.Application;
 using Auth.Infrastructure.MsSql;
 using Microsoft.OpenApi.Models;
+using Shared.Utils.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddJwtAuthentication(builder.Configuration);
 builder.Services.InjectInfrastructureDependencies(builder.Configuration);
 builder.Services.InjectApplicationDependencies();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
