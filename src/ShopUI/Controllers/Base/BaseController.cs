@@ -14,19 +14,6 @@ namespace ShopUI.Controllers.Base
             HttpClient = httpClientFactory.CreateClient();
         }
 
-        protected void SetTokenCookie(string token)
-        {
-            var cookieOptions = new CookieOptions
-            {
-                Expires = DateTime.UtcNow.AddMinutes(30),
-                HttpOnly = true,
-                Secure = false,
-                SameSite = SameSiteMode.None,
-            };
-
-            Response.Cookies.Append(AccessToken, token, cookieOptions);
-        }
-
         protected string? GetTokenFromCookie()
         {
             return User.Claims.First(x => x.Type == ClaimTypes.Authentication).Value;

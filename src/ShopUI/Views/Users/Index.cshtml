@@ -22,8 +22,9 @@
             </div>
     </form>
 </div>
-
-<table class="table">
+@if (ViewBag.Error == null)
+{
+    <table class="table">
     <thead>
         <tr>
             <th>
@@ -45,45 +46,50 @@
     </thead>
     <tbody>
         @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @if (item.IsLocked)
-                    {
-                        <div>Да</div>
-                    }
-                    else
-                    {
-                        <div>Нет</div>
-                    }
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.RolesToStr)
-                </td>
-                <td>
-                    @if (item.IsLocked)
-                    {
-                        @Html.ActionLink("Разблокировать", "Unblock", new { id = item.Id }, new { @class = "btn" })
-                    }
-                    else
-                    {
-                        @Html.ActionLink("Заблокировать", "Block", new { id = item.Id }, new { @class = "btn" })
-                    }
-                </td>
-                <td>
-                    @Html.ActionLink("Добавить роль", "AddToRole", new { id = item.Id }, new { @class = "btn" })
-                    @Html.ActionLink("Удалить роль", "RemoveToRole", new { id = item.Id }, new { @class = "btn" })
-                </td>
-                <td>
-                    <p>@Html.ActionLink("Удалить", "Delete", new { id = item.Id })</p>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @if (item.IsLocked)
+                        {
+                            <div>Да</div>
+                        }
+                        else
+                        {
+                            <div>Нет</div>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RolesToStr)
+                    </td>
+                    <td>
+                        @if (item.IsLocked)
+                        {
+                            @Html.ActionLink("Разблокировать", "Unblock", new { id = item.Id }, new { @class = "btn" })
+                        }
+                        else
+                        {
+                            @Html.ActionLink("Заблокировать", "Block", new { id = item.Id }, new { @class = "btn" })
+                        }
+                    </td>
+                    <td>
+                        @Html.ActionLink("Добавить роль", "AddToRole", new { id = item.Id }, new { @class = "btn" })
+                        @Html.ActionLink("Удалить роль", "RemoveToRole", new { id = item.Id }, new { @class = "btn" })
+                    </td>
+                    <td>
+                        <p>@Html.ActionLink("Удалить", "Delete", new { id = item.Id })</p>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <div class="error">@ViewBag.Error</div>
+}

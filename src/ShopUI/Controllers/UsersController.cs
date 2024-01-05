@@ -30,35 +30,35 @@ namespace ShopUI.Controllers
             var response = await HttpClient.GetAsync(ApiUrls.Users + query);
 
             if (response.StatusCode != HttpStatusCode.OK)
-            {
                 ViewBag.Error = await response.Content.ReadAsStringAsync()
                     ?? "Ошибка";
-                return View("Index", new List<UserModel>());
-            }
+
             string result = await response.Content.ReadAsStringAsync();
 
             var users = JsonConvert.DeserializeObject<IEnumerable<ViewUser>>(result)!
-                .Select(x => new UserModel()
+                .Select(x =>
                 {
-                    Email = x.Email,
-                    Id = x.Id,
-                    IsLocked = x.IsLocked,
-                    Name = x.Name
+                    var user = new UserModel()
+                    {
+                        Email = x.Email,
+                        Id = x.Id,
+                        IsLocked = x.IsLocked,
+                        Name = x.Name
+                    };
+                    response = HttpClient.GetAsync($"{ApiUrls.Users}{user.Id}/roles/").Result;
+                    if (response.StatusCode != HttpStatusCode.OK)
+                    {
+                        ViewBag.Error = response.Content.ReadAsStringAsync().Result
+                            ?? "Ошибка";
+                        return user;
+                    }
+                    user.Roles = JsonConvert.DeserializeObject<IEnumerable<string>>(
+                        response.Content.ReadAsStringAsync().Result)!;
+                    user.RolesToStr = string.Join(", ", user.Roles);
+                    return user;
                 })!;
-
-            foreach (var user in users)
-            {
-                response = await HttpClient.GetAsync($"{ApiUrls.Users}{user.Id}/roles/");
-                if (response.StatusCode != HttpStatusCode.OK)
-                {
-                    ViewBag.Error = await response.Content.ReadAsStringAsync()
-                        ?? "Ошибка";
-                    return View("Index", new List<UserModel>());
-                }
-                user.Roles = JsonConvert.DeserializeObject<IEnumerable<string>>(
-                    await response.Content.ReadAsStringAsync())!;
-                user.RolesToStr = string.Join(", ", user.Roles);
-            }
+            if (ViewBag.Error != null)
+                return View("Index", new List<UserModel>());
             TempData["Name"] = name;
 
             return View("Index", users);

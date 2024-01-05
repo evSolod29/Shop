@@ -63,6 +63,8 @@ namespace ShopUI.Controllers
         [HttpGet("create")]
         public async Task<ActionResult> Create()
         {
+            var token = GetTokenFromCookie();
+            HttpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
             var categories = JsonConvert.DeserializeObject<IEnumerable<ViewCategory>>(
                 await HttpClient.GetStringAsync(ApiUrls.Categories)
             );

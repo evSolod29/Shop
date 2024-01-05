@@ -63,7 +63,6 @@ namespace ShopUI.Controllers
 
         private async Task Authenticate(AuthDetails details)
         {
-            SetTokenCookie(details.Token);
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme, ClaimTypes.Name, ClaimTypes.Role);
             identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, details.Username));
             identity.AddClaim(new Claim(ClaimTypes.Name, details.Username));

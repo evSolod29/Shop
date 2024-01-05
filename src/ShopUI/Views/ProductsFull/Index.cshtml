@@ -98,8 +98,8 @@
                     @Html.DisplayFor(modelItem => item.Description)
                 </td>
                 <td>
-                    <span id="price">@item.Price.ToString("F2", CultureInfo.InvariantCulture)</span>
-                    <a href="#" id="usd">*</a>
+                    <span>@item.Price.ToString("F2", CultureInfo.InvariantCulture)</span>
+                    <a href="#" class="usd">*</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CommonNote)
@@ -118,11 +118,11 @@
 </table>
 @section scripts {
     <script>
-        $("#usd a").click(function () {
+        $(".usd").on("click", function (e) {
             var value;
             $.getJSON('https://api.nbrb.by/exrates/rates?periodicity=0', function (data) {
                 value = data[7].Cur_OfficialRate;
-                alert("Стоимость в USD: " + parseFloat($("#price").text()) * value);
+                alert("Стоимость в USD: " + (parseFloat($(e.target).prev().text()) / value).toFixed(2));
             });
         });
     </script>
