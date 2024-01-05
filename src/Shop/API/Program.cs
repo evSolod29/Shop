@@ -2,6 +2,7 @@ using Shop.Application;
 using Shop.Infrastructure.MsSql;
 using Shared.Utils.Extensions;
 using Microsoft.OpenApi.Models;
+using Shared.Utils.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -55,6 +56,8 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<LoggingMiddleware>();
 
 app.MapControllers();
 

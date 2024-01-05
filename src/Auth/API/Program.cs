@@ -1,6 +1,7 @@
 using Auth.Application;
 using Auth.Infrastructure.MsSql;
 using Microsoft.OpenApi.Models;
+using Shared.Utils.Middleware;
 using Shared.Utils.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -56,6 +57,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<LoggingMiddleware>();
 
 app.MapControllers();
 
