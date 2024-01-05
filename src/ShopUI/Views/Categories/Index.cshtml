@@ -1,0 +1,54 @@
+@using System.Globalization
+@using Shared.Resources
+@model IEnumerable<Shared.DTO.DTO.Categories.ViewCategory>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="mb-1">
+    <a asp-action="Create" class="btn btn-success">Добавить</a>
+</div>
+
+<div class="container mt-1 mb-1">
+    <form asp-action="Index" method="get" class="border p-4">
+        <div asp-validation-summary="None" class="text-danger"></div>
+        <div class="row mb-2">
+            <div class="form-group col ">
+                <input name="name" class="form-control" placeholder="@Shared.Resources.Strings.Name"
+                    value="@TempData["Name"]">
+            </div>
+            <div class="row pt-2 mb-2">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Найти</button>
+                    <a asp-action="Index" class="btn btn-danger">Сбросить</a>
+                </div>
+            </div>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Shared.Resources.Strings.Name
+            </th>
+            <th />
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Ред.", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+
+                    <p>@Html.ActionLink("Удалить", "Delete", new { id = item.Id })</p>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

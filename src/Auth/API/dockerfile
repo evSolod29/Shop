@@ -1,0 +1,24 @@
+FROM mcr.microsoft.com/dotnet/aspnet:6.0.25 AS base
+
+FROM mcr.microsoft.com/dotnet/sdk:6.0.417 AS build
+
+WORKDIR /src
+
+COPY ./Auth ./Auth
+COPY ./Shared.DTO ./Shared.DTO
+COPY ./Shared.Resources ./Shared.Resources
+COPY ./Shared.Utils ./Shared.Utils
+
+WORKDIR /src/Auth/API
+
+RUN dotnet restore
+RUN dotnet publish -c Release -o /App
+
+FROM base AS app
+WORKDIR /App
+COPY --from=build /App .
+
+ENV ASPNETCORE_URLS=http://+:5000
+EXPOSE 5000
+
+ENTRYPOINT ["dotnet", "Auth.API.dll"]

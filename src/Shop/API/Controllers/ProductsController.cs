@@ -1,5 +1,8 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared.DTO;
 using Shared.DTO.DTO.Products;
+using Shared.Resources;
 using Shop.Application.Exceptions;
 using Shop.Application.Interfaces;
 
@@ -19,6 +22,7 @@ namespace Shop.API.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = Roles.SuperUser)]
         [ProducesResponseType(typeof(long), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         public async Task<ActionResult<long>> Post(CreateProduct product)
@@ -34,6 +38,7 @@ namespace Shop.API.Controllers
         }
 
         [HttpPut("{id:int}")]
+        [Authorize(Roles = Roles.SuperUser)]
         [ProducesResponseType(typeof(long), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
@@ -54,6 +59,7 @@ namespace Shop.API.Controllers
         }
 
         [HttpDelete("{id:int}")]
+        [Authorize(Roles = Roles.SuperUser)]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<ActionResult> Delete(long id)
@@ -70,6 +76,7 @@ namespace Shop.API.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = Roles.User)]
         [ProducesResponseType(typeof(ViewProduct), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
         public async Task<ActionResult<ViewProduct>> Get(long id)
@@ -85,8 +92,9 @@ namespace Shop.API.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(IEnumerable<ViewProductFull>), StatusCodes.Status200OK)]
-        public async Task<ActionResult<IEnumerable<ViewProductFull>>> Get(string? name = null,
+        [Authorize(Roles = Roles.User)]
+        [ProducesResponseType(typeof(IEnumerable<ViewProduct>), StatusCodes.Status200OK)]
+        public async Task<ActionResult<IEnumerable<ViewProduct>>> Get(string? name = null,
                                                                         string? description = null,
                                                                         decimal? priceFrom = null,
                                                                         decimal? priceTo = null,
@@ -99,6 +107,7 @@ namespace Shop.API.Controllers
         [HttpGet("full/{id:int}")]
         [ProducesResponseType(typeof(ViewProductFull), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [Authorize(Roles = Roles.SuperUser)]
         public async Task<ActionResult<ViewProductFull>> GetFull(long id)
         {
             try

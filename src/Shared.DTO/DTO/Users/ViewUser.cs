@@ -6,7 +6,7 @@ namespace Shared.DTO.DTO.Users
 {
     public class ViewUser
     {
-        public string UserId { get; set; } = null!;
+        public string Id { get; set; } = null!;
         [Display(Name = nameof(Strings.UserName), ResourceType = typeof(Strings))]
         public string Name { get; set; } = null!;
         [Display(Name = nameof(Strings.Email), ResourceType = typeof(Strings))]

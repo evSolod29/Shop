@@ -15,13 +15,13 @@ namespace Shop.Infrastructure.MsSql.Repositories
         public async Task<IEnumerable<Category>> GetByFilter(string? name = null, CancellationToken cancellationToken = default)
         {
             return await BaseInclude(entities)
-                .Where(x => string.IsNullOrEmpty(name) || x.Name.Equals(name, StringComparison.OrdinalIgnoreCase))
+                .Where(x => string.IsNullOrEmpty(name) || x.Name.ToLower().Contains(name.ToLower()))
                 .ToListAsync(cancellationToken);
         }
 
-        public Task<bool> HasName(string name, CancellationToken cancellationToken = default)
+        public async Task<bool> HasName(string name, CancellationToken cancellationToken = default)
         {
-            throw new NotImplementedException();
+            return await entities.AnyAsync(x => x.Name.ToLower() == name.ToLower(), cancellationToken: cancellationToken);
         }
 
         protected override IQueryable<Category> BaseInclude(IQueryable<Category> query)

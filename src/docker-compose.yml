@@ -1,0 +1,64 @@
+version: '3.4'
+
+services:
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-CU24-ubuntu-20.04
+    container_name: 'Database'
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 1024M
+    environment:
+      SA_PASSWORD: ${SA_PASSWORD}
+      ACCEPT_EULA: "Y"
+    ports:
+      - 1433:1433
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "/bin/sh",
+          "-c",
+          "/opt/mssql-tools/bin/sqlcmd",
+          "-S",
+          "mssql",
+          "-U",
+          "sa",
+          "-P",
+          "${SA_PASSWORD}",
+          "-Q",
+          "SELECT \"READY\"",
+          "|",
+          "grep",
+          "-q",
+          "READY"
+        ]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+  auth_service:
+    build:
+      context: .
+      dockerfile: Auth/API/dockerfile
+    depends_on:
+      mssql:
+        condition: service_healthy
+    command: --seed
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 5000:5000
+  shop_service:
+    build:
+      context: .
+      dockerfile: Shop/API/dockerfile
+    depends_on:
+      mssql:
+        condition: service_healthy
+    command: --enable-migrations
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - 5001:5000

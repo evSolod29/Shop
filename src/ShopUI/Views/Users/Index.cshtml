@@ -1,0 +1,89 @@
+@using System.Globalization
+@using Shared.Resources
+@model IEnumerable<ShopUI.Models.UserModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container mt-1 mb-1">
+    <form asp-action="Index" method="get" class="border p-4">
+        <div asp-validation-summary="None" class="text-danger"></div>
+        <div class="row mb-2">
+            <div class="form-group col ">
+                <input name="name" class="form-control" placeholder="@Shared.Resources.Strings.UserName"
+                    value="@TempData["Name"]">
+            </div>
+            <div class="row pt-2 mb-2">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Найти</button>
+                    <a asp-action="Index" class="btn btn-danger">Сбросить</a>
+                </div>
+            </div>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Shared.Resources.Strings.UserName
+            </th>
+            <th>
+                @Shared.Resources.Strings.Email
+            </th>
+            <th>
+                @Shared.Resources.Strings.IsLocked
+            </th>
+            <th>
+                Обязанности
+            </th>
+            <th />
+            <th />
+            <th />
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @if (item.IsLocked)
+                    {
+                        <div>Да</div>
+                    }
+                    else
+                    {
+                        <div>Нет</div>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RolesToStr)
+                </td>
+                <td>
+                    @if (item.IsLocked)
+                    {
+                        @Html.ActionLink("Разблокировать", "Unblock", new { id = item.Id }, new { @class = "btn" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink("Заблокировать", "Block", new { id = item.Id }, new { @class = "btn" })
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Добавить роль", "AddToRole", new { id = item.Id }, new { @class = "btn" })
+                    @Html.ActionLink("Удалить роль", "RemoveToRole", new { id = item.Id }, new { @class = "btn" })
+                </td>
+                <td>
+                    <p>@Html.ActionLink("Удалить", "Delete", new { id = item.Id })</p>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

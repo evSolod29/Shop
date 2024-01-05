@@ -88,6 +88,7 @@ namespace Shop.Application.Services
         {
             try
             {
+                await validator.ValidateAndThrowAsync(createProduct);
                 Product? product = await repo.Products.GetById(id)
                     ?? throw new NotFoundException(Strings.ProductNotFound);
                 product = mapper.Map(createProduct, product);

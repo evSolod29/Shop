@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Auth.Domain.Repositories.Base;
+using Microsoft.AspNetCore.Builder;
 
 namespace Auth.Infrastructure.MsSql
 {
@@ -16,7 +17,7 @@ namespace Auth.Infrastructure.MsSql
             string connectionString = configuration["MSSQL:ConnectionString"] ??
                 throw new NullReferenceException("Section \"MSSQL:ConnectionString\" not found in configuration file.");
             services.AddDbContext<AuthContext>(x => x.UseSqlServer(connectionString));
-            services.AddIdentity<AuthUser, AuthRole>(
+            services.AddIdentity<AuthUser, IdentityRole>(
                 options =>
                 {
                     options.SignIn.RequireConfirmedAccount = false;

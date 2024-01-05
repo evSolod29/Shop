@@ -42,7 +42,8 @@ builder.Services.AddSwaggerGen(option =>
 });
 
 var app = builder.Build();
-
+if (args.Contains("--enable-migrations"))
+    await app.Migration();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

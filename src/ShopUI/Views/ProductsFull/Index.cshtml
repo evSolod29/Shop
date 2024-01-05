@@ -1,0 +1,149 @@
+@using System.Globalization
+@using Shared.Resources
+@model IEnumerable<Shared.DTO.DTO.Products.ViewProductFull>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="mb-1">
+    <a asp-action="Create" class="btn btn-success">Добавить</a>
+</div>
+
+<div class="container mt-1 mb-1">
+    <form asp-action="Index" method="get" class="border p-4">
+        <div asp-validation-summary="None" class="text-danger"></div>
+        <div class="row mb-2">
+            <div class="form-group col ">
+                <input name="name" class="form-control" placeholder="@Shared.Resources.Strings.Name"
+                    value="@TempData["Name"]">
+            </div>
+            @if (TempData.ContainsKey("Categories") && TempData["Categories"] is
+            IEnumerable<Shared.DTO.DTO.Categories.ViewCategory> categories)
+            {
+                <div class="form-group col">
+                    <input type="text" list="categoriesList" id="categoryInput" name="categoryInput"
+                        class="form-control custom-select" placeholder="@Shared.Resources.Strings.Category" />
+                    <input type="hidden" name="categoryId" id="categoryId" value="@TempData["CategoryId"]" />
+                    <datalist id="categoriesList">
+                        @foreach (var category in categories)
+                        {
+                            <option data-id="@category.Id" value="@category.Name"></option>
+                        }
+                    </datalist>
+                </div>
+            }
+            <div class="form-group col">
+                <input name="description" class="form-control" placeholder="@Shared.Resources.Strings.Description"
+                    value="@TempData["Description"]">
+            </div>
+        </div>
+        <div class="row mb-2">
+            <div class="form-group col">
+                <input name="commonNote" type="text" class="form-control"
+                    placeholder="@Shared.Resources.Strings.CommonNote" value="@TempData["CommonNote"]">
+            </div>
+            <div class="form-group col">
+                <input name="priceFrom" class="form-control" value="@TempData["priceFrom"]"
+                    onkeypress="return formatInput(event, this)">
+            </div>
+            <div class="form-group col">
+                <input name="priceTo" class="form-control" value="@TempData["priceTo"]"
+                    onkeypress="return formatInput(event, this)">
+            </div>
+            <div class="row mb-2">
+                <div class="col">
+                    <button type="submit" class="btn btn-primary">Найти</button>
+                    <a asp-action="Index" class="btn btn-danger">Сбросить</a>
+                </div>
+            </div>
+    </form>
+</div>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Shared.Resources.Strings.Name
+            </th>
+            <th>
+                @Shared.Resources.Strings.Category
+            </th>
+            <th>
+                @Shared.Resources.Strings.Description
+            </th>
+            <th>
+                @Shared.Resources.Strings.Price
+            </th>
+            <th>
+                @Shared.Resources.Strings.CommonNote
+            </th>
+            <th>
+                @Shared.Resources.Strings.AdditionalNote
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Category.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    <span id="price">@item.Price.ToString("F2", CultureInfo.InvariantCulture)</span>
+                    <a href="#" id="usd">*</a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommonNote)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AdditionalNote)
+                </td>
+                <td>
+                    @Html.ActionLink("Ред.", "Edit", new { id = item.Id }, new { @class = "btn btn-warning" })
+
+                    <p>@Html.ActionLink("Удалить", "Delete", new { id = item.Id })</p>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+@section scripts {
+    <script>
+        $("#usd a").click(function () {
+            var value;
+            $.getJSON('https://api.nbrb.by/exrates/rates?periodicity=0', function (data) {
+                value = data[7].Cur_OfficialRate;
+                alert("Стоимость в USD: " + parseFloat($("#price").text()) * value);
+            });
+        });
+    </script>
+}
+<script>
+    var categoryInput = document.getElementById('categoryInput');
+    var categoryIdInput = document.getElementById('categoryId');
+
+    categoryInput.addEventListener('input', function () {
+        var selectedOption = categoriesList.querySelector('option[value="' + categoryInput.value + '"]');
+        if (selectedOption) {
+            categoryIdInput.value = selectedOption.getAttribute('data-id');
+        } else {
+            categoryIdInput.value = '';
+        }
+    });
+
+    var defaultOption = categoriesList.querySelector('option[data-id="@TempData["CategoryId"]"]');
+    if (defaultOption) {
+        categoryInput.value = defaultOption.value;
+    }
+
+    console.log(sessionStorage);
+</script>

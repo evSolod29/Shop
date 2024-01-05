@@ -11,7 +11,7 @@ namespace Auth.API.Controllers;
 
 [ApiController]
 [Route("/")]
-public class MainController : ControllerBase
+public class MainController : Controller
 {
     private readonly IAuthorizationService authService;
     private readonly IUserService userService;
@@ -44,7 +44,6 @@ public class MainController : ControllerBase
     }
 
     [HttpGet("/profile")]
-    [Authorize]
     [ProducesResponseType(typeof(ViewUser), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<ActionResult<ViewUser>> GetUsers()

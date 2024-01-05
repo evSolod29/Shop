@@ -101,8 +101,8 @@ namespace Auth.Infrastructure.MsSql.Repositories
         {
             return (await userManager.Users.AsNoTracking()
                 .Where(x =>
-                    (string.IsNullOrEmpty(name) || x.UserName.Contains(name, StringComparison.OrdinalIgnoreCase)) &&
-                    (string.IsNullOrEmpty(email) || x.Email.Contains(email, StringComparison.OrdinalIgnoreCase)))
+                    (string.IsNullOrEmpty(name) || x.UserName.ToLower().Contains(name.ToLower())) &&
+                    (string.IsNullOrEmpty(email) || x.Email.ToLower().Contains(email.ToLower())))
                 .ToListAsync())
                 .ToIEnumerableUser();
         }

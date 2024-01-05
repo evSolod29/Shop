@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.DTO.DTO.Categories;
+using Shared.Resources;
 using Shop.Application.Exceptions;
 using Shop.Application.Interfaces;
 
@@ -19,6 +21,7 @@ namespace Shop.API.Controllers
         [HttpGet("{id:int}")]
         [ProducesResponseType(typeof(ViewCategory), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [Authorize(Roles = Roles.SuperUser + "," + Roles.User)]
         public async Task<ActionResult<ViewCategory>> Get(long id)
         {
             try
@@ -33,6 +36,7 @@ namespace Shop.API.Controllers
 
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<ViewCategory>), StatusCodes.Status200OK)]
+        [Authorize(Roles = Roles.SuperUser + "," + Roles.User)]
         public async Task<ActionResult<IEnumerable<ViewCategory>>> Get(string? name)
         {
             return Ok(await service.GetCategories(name));
@@ -41,6 +45,7 @@ namespace Shop.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(long), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [Authorize(Roles = Roles.SuperUser)]
         public async Task<ActionResult<long>> Post(CreateCategory category)
         {
             try
@@ -57,6 +62,7 @@ namespace Shop.API.Controllers
         [ProducesResponseType(typeof(long), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [Authorize(Roles = Roles.SuperUser)]
         public async Task<ActionResult<int>> Put(long id, CreateCategory category)
         {
             try
@@ -76,6 +82,7 @@ namespace Shop.API.Controllers
         [HttpDelete("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(string), StatusCodes.Status404NotFound)]
+        [Authorize(Roles = Roles.SuperUser)]
         public async Task<ActionResult> Delete(long id)
         {
             try

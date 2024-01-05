@@ -26,12 +26,13 @@ namespace Shared.Utils.Services
             var claims = CreateClaims(userName, roles, startAt, expiration);
             var credentials = CreateSigningCredentials(configurarion["JWT:SecurityKey"]);
 
-            var token = CreateJwtToken(claims, credentials, expiration);
+            var token = CreateJwtToken(startAt, claims, credentials, expiration);
             var tokenHandler = new JwtSecurityTokenHandler();
             return tokenHandler.WriteToken(token);
         }
 
         private JwtSecurityToken CreateJwtToken(
+            DateTime notBefore,
             List<Claim> claims,
             SigningCredentials credentials,
             DateTime expiration) =>
@@ -39,6 +40,7 @@ namespace Shared.Utils.Services
                 configurarion["JWT:Issuer"],
                 configurarion["JWT:Audience"],
                 claims,
+                notBefore,
                 expires: expiration,
                 signingCredentials: credentials
             );
@@ -49,8 +51,8 @@ namespace Shared.Utils.Services
             var claims = new List<Claim>
             {
                 new(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new(JwtRegisteredClaimNames.Nbf, nbf.ToString(CultureInfo.InvariantCulture)),
-                new(JwtRegisteredClaimNames.Iat, iat.ToString(CultureInfo.InvariantCulture)),
+                new(JwtRegisteredClaimNames.Nbf, nbf.Ticks.ToString()),
+                new(JwtRegisteredClaimNames.Iat, nbf.Ticks.ToString()),
                 new(ClaimTypes.Name, userName),
             };
             foreach (var role in roles)
@@ -61,9 +63,9 @@ namespace Shared.Utils.Services
         {
             return new SigningCredentials(
                 new SymmetricSecurityKey(
-                    Encoding.UTF8.GetBytes("securityKey")
+                    Encoding.UTF8.GetBytes(securityKey)
                 ),
-                SecurityAlgorithms.HmacSha256
+                SecurityAlgorithms.HmacSha256Signature
             );
         }
     }
